@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Pulsr Cards — Business Inquiry</title>
+
+  <!-- Dark bars on mobile -->
+  <meta name="theme-color" content="#0e0f12">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Optional favicons -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root{
+      --brand-1:#7a5cff;   /* violet */
+      --brand-2:#00e5ff;   /* cyan */
+      --brand-3:#ff2a6d;   /* magenta accent */
+      --bg:#121212;
+      --surface:#1b1f2a;
+      --ink:#f3f6ff;
+      --muted:#bac4d6;
+      --line:rgba(255,255,255,.14);
+      --line-strong:rgba(255,255,255,.22);
+      --ring: 0 0 0 2px color-mix(in oklab, var(--brand-2) 65%, transparent);
+      --field-bg: rgba(255,255,255,.08);   /* darker fields for contrast */
+      --field-bg-focus: rgba(255,255,255,.12);
+      --placeholder:#9fb0cb;               /* brighter placeholder */
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%}
+    html,body{background:#0e0f12}
+    body{
+      margin:0; font-family:'Comfortaa', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--ink);
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      background:
+        radial-gradient(1200px 600px at 15% -10%, color-mix(in oklab, var(--brand-2) 10%, transparent), transparent 60%),
+        radial-gradient(1000px 500px at 85% 110%, color-mix(in oklab, var(--brand-3) 10%, transparent), transparent 60%),
+        var(--bg);
+    }
+
+    .container{
+      width:100%; max-width:520px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid var(--line); border-radius:20px; box-shadow:0 18px 50px rgba(0,0,0,.45);
+      overflow:hidden; position:relative; animation:in .7s ease-out both;
+    }
+    @keyframes in{from{opacity:0;transform:translateY(6px) scale(.98)}}
+
+    .hero{
+      position:relative;
+      background: linear-gradient(135deg, rgba(0,0,0,.65), rgba(0,0,0,.35)),
+                  radial-gradient(800px 200px at 50% -10%, color-mix(in oklab, var(--brand-1) 50%, transparent), transparent),
+                  radial-gradient(800px 200px at 50% 110%, color-mix(in oklab, var(--brand-2) 50%, transparent), transparent);
+      padding:28px 24px 24px; border-bottom:1px solid var(--line);
+    }
+    .brand{
+      display:flex; align-items:flex-end; gap:8px; pointer-events:none;
+    }
+    .brand .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: conic-gradient(from 210deg, var(--brand-1), var(--brand-2), var(--brand-3), var(--brand-1));
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+      display:grid; place-items:center; color:#0e0f12; font-weight:900;
+    }
+    .brand .word{ font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:14px;
+      background:linear-gradient(135deg, var(--brand-2), var(--brand-1)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero h1{ margin:10px 0 6px; font-size:22px; }
+    .hero p{ margin:0; color:var(--muted); font-size:13.5px }
+
+    .strip{
+      display:flex; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.03);
+      overflow:auto;
+    }
+    .chip{
+      padding:10px 12px; border-radius:12px; border:1px solid var(--line-strong);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      display:flex; gap:10px; align-items:center; font-size:12.5px; color:var(--ink);
+      white-space:nowrap;
+    }
+    .chip i{ color:var(--brand-2) }
+
+    .form{
+      padding:18px 18px 22px; display:grid; gap:14px;
+    }
+
+    .row{ display:grid; gap:14px; grid-template-columns:1fr 1fr; }
+    @media (max-width:520px){ .row{ grid-template-columns:1fr } }
+
+    .input{ position:relative; }
+    .input i{
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      color:#cde2ff; font-size:14px; transition:.25s; filter:drop-shadow(0 1px 0 rgba(0,0,0,.3));
+    }
+    input, select, textarea{
+      width:100%; color:#f7fbff;
+      background:var(--field-bg);
+      border:1px solid var(--line-strong); border-radius:10px;
+      padding:14px 12px 14px 38px; font: inherit; transition:.2s;
+    }
+    /* Make the dropdown (“menu”) clearly legible and higher-contrast */
+    select{
+      color:#f7fbff;
+      background-image:
+        linear-gradient(45deg,transparent 50%, #d7e8ff 50%),
+        linear-gradient(135deg, #d7e8ff 50%, transparent 50%);
+      background-position: calc(100% - 18px) 55%, calc(100% - 12px) 55%;
+      background-size:6px 6px, 6px 6px;
+      background-repeat:no-repeat;
+    }
+    /* Improve in-menu contrast where UA allows */
+    select option{ color:#0e0f12; background:#e6f1ff; } /* many browsers honor this on desktop; iOS uses native picker */
+
+    textarea{ min-height:120px; padding:12px; padding-left:38px; resize:vertical }
+    input::placeholder, textarea::placeholder{ color:var(--placeholder) }
+    input:focus, select:focus, textarea:focus{
+      outline:none; border-color: color-mix(in oklab, var(--brand-2) 75%, white 0%);
+      box-shadow: var(--ring);
+      background:var(--field-bg-focus);
+    }
+    input:focus + i, select:focus + i, textarea:focus + i{ color:#b7eeff; transform:translateY(-50%) scale(1.08) }
+
+    .hint{ color:var(--muted); font-size:12px; }
+
+    .submit{
+      margin-top:4px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .btn{
+      flex:1 1 auto;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 16px; border-radius:12px; font-weight:700; letter-spacing:.02em;
+      border:1px solid transparent; cursor:pointer; user-select:none;
+      background:linear-gradient(135deg, var(--brand-2), var(--brand-1));
+      color:#0e0f12; box-shadow:0 10px 28px rgba(0,0,0,.45);
+      transition:.15s transform, .2s filter, .2s box-shadow;
+    }
+    .btn:active{ transform:translateY(1px) scale(.99) }
+    .btn.secondary{
+      background:transparent; color:var(--ink); border-color:var(--line-strong);
+    }
+
+    .footer{
+      border-top:1px solid var(--line);
+      display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;
+      color:var(--muted); font-size:12.5px; padding:14px 16px 18px;
+    }
+    .footer img{ height:18px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.25)) }
+    .footer a{ color:#7bdcff; text-decoration:none; }
+
+    /* Toast */
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%) translateY(20px);
+      padding:12px 16px; background:#101318; color:var(--ink);
+      border:1px solid var(--line-strong); border-radius:12px; opacity:0; transition:.25s; z-index:9999;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(0) }
+
+    /* Honeypot (hidden) */
+    .honeypot{ position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="brand">
+        <div class="logo"><i class="fa-solid fa-bolt"></i></div>
+        <div class="word">pulsr cards</div>
+      </div>
+      <h1>Let’s build your digital business card</h1>
+      <p>Tell us a bit about your project and we’ll get back within 1–2 business days.</p>
+    </section>
+
+    <div class="strip">
+      <div class="chip"><i class="fa-solid fa-shield-check"></i> No spam • private inquiry</div>
+      <div class="chip"><i class="fa-solid fa-mobile-screen-button"></i> Mobile-first</div>
+      <div class="chip"><i class="fa-solid fa-circle-half-stroke"></i> High contrast UI</div>
+    </div>
+
+    <form id="inquiryForm" class="form" novalidate>
+      <!-- Honeypot -->
+      <input class="honeypot" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="row">
+        <div class="input">
+          <input id="name" name="name" type="text" placeholder="Your name *" required aria-label="Your name">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <div class="input">
+          <input id="email" name="email" type="email" placeholder="you@email.com *" required aria-label="Email">
+          <i class="fa-regular fa-envelope"></i>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <input id="company" name="company" type="text" placeholder="Company (optional)" aria-label="Company">
+          <i class="fa-regular fa-building"></i>
+        </div>
+        <div class="input">
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="Phone (optional)" aria-label="Phone">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <select id="projectType" name="projectType" required aria-label="Project type">
+            <option value="" selected disabled>Project type *</option>
+            <option>Solo card</option>
+            <option>Team rollout (2–10)</option>
+            <option>Department (11–50)</option>
+            <option>Company-wide (50+)</option>
+            <option>White-label / Reseller</option>
+            <option>Something else</option>
+          </select>
+          <i class="fa-regular fa-clipboard"></i>
+        </div>
+        <div class="input">
+          <select id="budget" name="budget" aria-label="Budget">
+            <option value="" selected>Budget (optional)</option>
+            <option>Under $250</option>
+            <option>$250–$750</option>
+            <option>$750–$2,000</option>
+            <option>$2,000+</option>
+          </select>
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+      </div>
+
+      <div class="input">
+        <textarea id="message" name="message" placeholder="What do you need? Features, timeline, links… *" required aria-label="Message"></textarea>
+        <i class="fa-regular fa-comment"></i>
+      </div>
+
+      <div class="hint">Fields marked * are required.</div>
+
+      <div class="submit">
+        <button class="btn" type="submit" id="sendBtn">
+          <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+        </button>
+        <button class="btn secondary" type="button" id="saveDraftBtn">
+          <i class="fa-regular fa-file-lines"></i> Save Draft
+        </button>
+      </div>
+    </form>
+
+    <div class="footer">
+      <img src="pulsr-logo.svg" alt="Pulsr" onerror="this.style.display='none'">
+      <span>Prefer email? <a href="mailto:me@davidbogdanov.com">me@davidbogdanov.com</a></span>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ===== CONFIG =====
+    const CONTACT_EMAIL = 'me@davidbogdanov.com';   // shown as fallback + footer link
+    const FORMSPREE_ID  = ''; // <--- put your Formspree form ID here (e.g. 'abcdxyzp'). Leave blank to simulate failure.
+
+    // Tiny helpers
+    const $ = s => document.querySelector(s);
+    const showToast = (msg) => { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'), 2200); };
+
+    // Save/restore draft via localStorage
+    const fields = ['name','email','company','phone','projectType','budget','message'];
+    function saveDraft(){
+      const data = {}; for(const id of fields){ data[id] = $('#'+id).value.trim(); }
+      localStorage.setItem('pulsr_inquiry_draft', JSON.stringify(data));
+      showToast('Draft saved locally');
+    }
+    function restoreDraft(){
+      try{
+        const raw = localStorage.getItem('pulsr_inquiry_draft'); if(!raw) return;
+        const data = JSON.parse(raw) || {};
+        for(const id of fields){ if(data[id]) $('#'+id).value = data[id]; }
+      }catch{}
+    }
+    restoreDraft();
+    $('#saveDraftBtn').addEventListener('click', saveDraft);
+    fields.forEach(id=> $('#'+id).addEventListener('change', saveDraft));
+
+    // Validation
+    function validate(){
+      const required = ['name','email','projectType','message'];
+      for(const id of required){
+        const el = $('#'+id);
+        if(!el.value.trim()){ el.focus(); showToast('Please complete required fields'); return false; }
+      }
+      if ($('#website').value) return false; // honeypot
+      return true;
+    }
+
+    // Build payload
+    function buildPayload(){
+      const get = id => $('#'+id).value.trim();
+      return {
+        name: get('name'),
+        email: get('email'),
+        company: get('company'),
+        phone: get('phone'),
+        projectType: get('projectType'),
+        budget: get('budget'),
+        message: get('message'),
+        _subject: `Pulsr Cards inquiry — ${get('name') || 'New lead'}`,
+        _gotcha: $('#website').value // honeypot
+      };
+    }
+
+    // Submit handler — direct send (Formspree). If misconfigured, show a helpful fallback.
+    $('#inquiryForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!validate()) return;
+
+      const btn = $('#sendBtn'); const original = btn.innerHTML;
+      btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-arrows-rotate fa-spin"></i> Sending…`;
+
+      try{
+        if(!FORMSPREE_ID){
+          throw new Error('Form endpoint not set');
+        }
+        const resp = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method:'POST',
+          headers:{ 'Accept':'application/json', 'Content-Type':'application/json' },
+          body: JSON.stringify(buildPayload())
+        });
+
+        if (!resp.ok){
+          // Try to parse any error for clarity
+          let detail = ''; try{ const j = await resp.json(); detail = j.error || j.message || ''; }catch{}
+          throw new Error(detail || `HTTP ${resp.status}`);
+        }
+
+        // Success!
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> Sent!`;
+        btn.style.background = 'linear-gradient(135deg, #4caf50, #7bdcff)';
+        showToast('Thanks! We’ll get back to you soon.');
+        localStorage.removeItem('pulsr_inquiry_draft');
+        $('#inquiryForm').reset();
+        setTimeout(()=>{ btn.innerHTML = original; btn.style.background=''; btn.disabled=false; }, 1500);
+
+      }catch(err){
+        console.error(err);
+        // Friendly fallback: suggest email if direct send not available
+        showToast('Could not send — opening email…');
+        setTimeout(()=>{
+          const subject = encodeURIComponent(`Pulsr Cards inquiry — ${$('#name').value.trim() || 'New lead'}`);
+          const lines = [
+            `Name: ${$('#name').value.trim()}`,
+            `Email: ${$('#email').value.trim()}`,
+            $('#company').value.trim()? `Company: ${$('#company').value.trim()}` : '',
+            $('#phone').value.trim()? `Phone: ${$('#phone').value.trim()}` : '',
+            `Project type: ${$('#projectType').value}`,
+            $('#budget').value? `Budget: ${$('#budget').value}` : '',
+            '',
+            'Message:',
+            $('#message').value.trim()
+          ].filter(Boolean).join('\n');
+          const body = encodeURIComponent(lines);
+          location.href = `mailto:${encodeURIComponent(CONTACT_EMAIL)}?subject=${subject}&body=${body}`;
+          btn.innerHTML = original; btn.disabled=false;
+        }, 400);
+      }
+    });
+
+    // Touch feedback
+    document.querySelectorAll('.btn, .chip').forEach(el=>{
+      el.addEventListener('touchstart', ()=> el.style.transform='translateY(1px) scale(.99)'),
+      el.addEventListener('touchend',   ()=> el.style.transform='')
+    });
+  </script>
+</body>
+</html>
